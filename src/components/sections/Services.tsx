@@ -1,0 +1,72 @@
+"use client";
+
+import { Card } from "@/components/ui/Card";
+import { motion } from "framer-motion";
+import { staggerChildren, fadeInUp, viewportConfig } from "@/lib/framer-variants";
+import { Armchair, Table, Sofa } from "lucide-react";
+import { VariantType } from "@/types";
+
+const services = [
+  {
+    title: "Custom Seating",
+    description: "Ergonomically designed chairs and sofas tailored to your specific comfort needs and style preferences.",
+    icon: Armchair,
+    variant: "solid" as VariantType,
+  },
+  {
+    title: "Dining Sets",
+    description: "Handcrafted tables and dining chairs that become the centerpiece of your family gatherings and meals.",
+    icon: Table,
+    variant: "glassmorph" as VariantType,
+  },
+  {
+    title: "Living Room Sets",
+    description: "Complete living room solutions, from sectionals to coffee tables, designed in perfect harmony.",
+    icon: Sofa,
+    variant: "solid" as VariantType,
+  }
+];
+
+export function Services() {
+  return (
+    <section id="services" className="py-24 bg-[var(--color-light-primary)] relative z-10 overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--color-accent-gold)]/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+      <div className="container mx-auto px-6 md:px-12">
+        <div className="text-center mb-16">
+          <h2 className="font-serif text-4xl md:text-5xl text-[var(--color-text-dark)] mb-4">
+            This is what we're best at
+          </h2>
+          <p className="text-neutral-500 max-w-2xl mx-auto font-sans text-lg">
+            Our expertise spans across various furniture types, each crafted with the same dedication to quality and design.
+          </p>
+        </div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportConfig}
+          variants={staggerChildren}
+          className="grid md:grid-cols-3 gap-8 relative z-20"
+        >
+          {services.map((service, index) => (
+            <motion.div key={index} variants={fadeInUp}>
+              <Card variant={service.variant} className="h-full flex flex-col items-start hover:-translate-y-2 transition-transform duration-300">
+                <div className="h-14 w-14 rounded-full bg-[var(--color-dark-primary)] text-white flex items-center justify-center mb-6">
+                  <service.icon className="h-7 w-7" />
+                </div>
+                <h3 className="font-serif text-2xl font-bold mb-3 text-[var(--color-text-dark)]">{service.title}</h3>
+                <p className="text-neutral-600 mb-8 flex-grow leading-relaxed">
+                  {service.description}
+                </p>
+                <a href="#" className="font-manrope text-[var(--color-accent-gold)] font-semibold hover:text-[var(--color-dark-primary)] transition-colors inline-flex items-center gap-2 mt-auto">
+                  Get a quote <span aria-hidden="true">&rarr;</span>
+                </a>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
