@@ -22,8 +22,8 @@ export function Navbar() {
     <>
       {/* Mobile bar */}
       <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-[var(--color-dark-primary)] px-5 box-border z-50 flex items-center justify-between">
-        <Link href="/">
-          <HeaderLogo videoSrc="" className="w-[48px] h-[48px]" />
+        <Link href="/" className="inline-block hover:scale-[1.2] transition-transform duration-300 origin-left">
+          <HeaderLogo videoSrc="" theme="dark" className="w-[60px] h-[60px]" />
         </Link>
         <button
           className="p-2 text-white focus:outline-none"
@@ -42,12 +42,13 @@ export function Navbar() {
             : "bg-transparent h-24 px-24 py-2.5"
         )}
       >
-        <Link href="/">
+        <Link href="/" className="inline-block hover:scale-[1.2] transition-transform duration-300 origin-left">
           <HeaderLogo
             videoSrc=""
+            theme={isScrolled ? "dark" : "light"}
             className={cn(
-              "transition-all duration-[800ms]",
-              isScrolled ? "w-[60px] h-[60px]" : "w-[80px] h-[80px]"
+              "transition-[width,height] duration-[800ms]",
+              isScrolled ? "w-[65px] h-[65px]" : "w-[85px] h-[85px]"
             )}
           />
         </Link>

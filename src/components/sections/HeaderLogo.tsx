@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { cn } from "@/lib/cn";
 
-export default function HeaderLogo({ videoSrc, className }: { videoSrc?: string; className?: string }) {
+export default function HeaderLogo({ videoSrc, className, theme = "light" }: { videoSrc?: string; className?: string; theme?: "light" | "dark" }) {
   const [videoEnded, setVideoEnded] = useState(!videoSrc);
+  const logoSrc = theme === "dark" ? "/home/logo-squared.png" : "/home/logo-squared1.png";
 
   return (
-    <div className={cn("relative overflow-hidden origin-left transition-all duration-[800ms] ease-out", className ?? "w-[90px] h-[90px]")}>
-      {/* Animated Video Layer */}
+    <div className={cn("relative overflow-hidden origin-left transition-[width,height] duration-[800ms] ease-out", className ?? "w-[90px] h-[90px]")}>
       {videoSrc && (
         <video
           src={videoSrc}
@@ -22,9 +22,8 @@ export default function HeaderLogo({ videoSrc, className }: { videoSrc?: string;
         />
       )}
 
-      {/* Static Image Layer (Reveals smoothly beneath) */}
       <img
-        src="/home/logo-squared1.png"
+        src={logoSrc}
         alt="Mod Space Interior Logo"
         width={80}
         height={80}
