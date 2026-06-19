@@ -6,7 +6,7 @@ import { Footer } from "@/components/sections/Footer";
 
 export default function GalleryPage() {
   return (
-    <main className="bg-[var(--color-dark-primary)] min-h-screen flex flex-col">
+    <main className="bg-[var(--color-light-primary)] min-h-screen flex flex-col">
       <Navbar />
       <GalleryHero />
       <FilteredGallery />

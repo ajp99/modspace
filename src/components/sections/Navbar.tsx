@@ -1,87 +1,103 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/Button";
-import { NAV_LINKS } from "@/lib/constants";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { motion, AnimatePresence } from "framer-motion";
+import { NAV_LINKS } from "@/lib/constants";
+import HeaderLogo from "./HeaderLogo";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 100);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <nav
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "bg-[var(--color-dark-primary)] text-[var(--color-light-primary)] py-4 shadow-md" : "bg-transparent text-[var(--color-text-dark)] py-6"
-      )}
-    >
-      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-        
-        <img src="/modspace-logo.png" width="125px"></img>
-        {/* <a href="#" className="font-serif text-2xl font-bold uppercase tracking-wider">
-          Mod Space Interior
-        </a>
-         */}
-
-        <div className="hidden md:flex items-center gap-8">
-          <ul className="flex items-center gap-6 font-manrope text-sm font-medium">
-            {NAV_LINKS.map((link) => (
-              <li key={link.name}>
-                <a href={link.href} className="hover:text-[var(--color-accent-gold)] transition-colors">
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <Button variant={isScrolled ? "glassmorph" : "solid"}>Book a consultation</Button>
-        </div>
-
+    <>
+      {/* Mobile bar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-[var(--color-dark-primary)] px-5 box-border z-50 flex items-center justify-between">
+        <Link href="/">
+          <HeaderLogo videoSrc="" className="w-[48px] h-[48px]" />
+        </Link>
         <button
-          className="md:hidden p-2 focus:outline-none"
+          className="p-2 text-white focus:outline-none"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
+      {/* Desktop nav */}
+      <nav
+        className={cn(
+          "hidden md:flex fixed top-0 left-0 right-0 z-50 items-center justify-between w-full box-border transition-all duration-[800ms]",
+          isScrolled
+            ? "bg-[var(--color-dark-primary)] h-20 px-12 py-2.5"
+            : "bg-transparent h-24 px-24 py-2.5"
+        )}
+      >
+        <Link href="/">
+          <HeaderLogo
+            videoSrc=""
+            className={cn(
+              "transition-all duration-[800ms]",
+              isScrolled ? "w-[60px] h-[60px]" : "w-[80px] h-[80px]"
+            )}
+          />
+        </Link>
+
+        <ul className="flex items-center gap-6 font-manrope text-sm font-medium">
+          {NAV_LINKS.map((link) => (
+            <li key={link.name}>
+              <Link
+                href={link.href}
+                className={cn(
+                  "uppercase transition-all duration-[800ms] hover:text-[var(--color-accent-gold)]",
+                  isScrolled ? "text-white" : "text-[var(--color-text-dark)]"
+                )}
+              >
+                {link.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {/* Mobile dropdown */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden absolute top-full left-0 right-0 bg-[var(--color-dark-primary)] text-white py-6 shadow-xl"
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden fixed top-16 left-0 right-0 w-full bg-[var(--color-dark-primary)] z-40"
           >
-            <ul className="flex flex-col items-center gap-6 font-manrope text-lg">
+            <ul className="flex flex-col items-center text-white py-6">
               {NAV_LINKS.map((link) => (
-                <li key={link.name}>
-                  <a
+                <li key={link.name} className="w-full text-center">
+                  <Link
                     href={link.href}
-                    className="hover:text-[var(--color-accent-gold)] transition-colors"
+                    className="block py-4 px-5 text-lg font-bold uppercase hover:text-[var(--color-accent-gold)] transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
-              <li>
-                <Button variant="solid" onClick={() => setIsMobileMenuOpen(false)}>Book a consultation</Button>
-              </li>
             </ul>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+
+      {/* Pushes page content down when mobile menu is open */}
+      {isMobileMenuOpen && <div className="md:hidden h-[calc(4rem+5*56px)]" />}
+    </>
   );
 }

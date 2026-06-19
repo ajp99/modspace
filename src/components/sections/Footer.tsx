@@ -10,19 +10,19 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-12 mb-16 border-b border-white/10 pb-16">
           <div className="text-center md:text-left">
             <h2 className="font-serif text-3xl font-bold uppercase tracking-wider mb-6 text-white">
-              Verdance
+              MOD SPACE INTERIOR
             </h2>
             <p className="text-neutral-400 max-w-xs font-sans">
-              Elevating spaces with custom-made luxury furniture. Designed for comfort, built to last.
+              Elevating spaces with Luxury Interiors. Designed for comfort, built to last.
             </p>
           </div>
           
-          <div className="flex flex-col items-center md:items-end w-full md:w-auto">
+          <div className="flex flex-col items-center md:items-end w-full ">
             <h3 className="font-manrope font-semibold text-lg mb-6 text-white">Stay inspired</h3>
-            <div className="flex w-full max-w-sm items-center gap-2 relative">
+            <div className="flex w-full max-w-[33%] items-center gap-2 relative">
               <input
                 type="email"
-                placeholder="info@example.com"
+                placeholder="Your Email here"
                 className="w-full h-12 rounded-full bg-white/5 border border-white/10 px-6 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)] transition-all placeholder:text-neutral-500 text-white"
               />
               <Button variant="outline" className="absolute right-1 top-1 bottom-1 h-10 px-6 py-0 border-white/20 text-white hover:border-[var(--color-accent-gold)]">
@@ -40,7 +40,7 @@ export function Footer() {
               </a>
             ))}
           </div>
-          <p>&copy; {new Date().getFullYear()} Verdance. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} MODSPACE INTERIOR. All rights reserved.</p>
         </div>
       </div>
     </footer>
